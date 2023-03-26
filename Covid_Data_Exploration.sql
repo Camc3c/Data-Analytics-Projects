@@ -1,3 +1,5 @@
+
+
 SELECT *
 FROM `covid-data-analysis-379919.Covid_Data.Covid_Deaths`
 WHERE continent IS NOT null
