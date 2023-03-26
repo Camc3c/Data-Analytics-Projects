@@ -1,4 +1,4 @@
-
+-- In this SQL file I will be manipulating and analyzing Covid data for later visualization
 
 SELECT *
 FROM `covid-data-analysis-379919.Covid_Data.Covid_Deaths`
@@ -45,6 +45,14 @@ WHERE continent IS NOT null
 GROUP BY Location, population
 ORDER BY PercentPopulationInfected DESC
 
+SELECT Location, population, date, MAX(total_cases) AS HighestInfectionCount, MAX((total_cases/population))*100 AS
+ PercentPopulationInfected
+FROM `covid-data-analysis-379919.Covid_Data.Covid_Deaths`
+-- WHERE location LIKE '%States%'
+WHERE continent IS NOT null
+GROUP BY Location, population, date
+ORDER BY PercentPopulationInfected DESC
+
 
 -- Show the countries with the Highest Death Count per population
 
@@ -52,6 +60,14 @@ SELECT Location, MAX(cast(total_deaths AS int)) AS TotalDeathCount
 FROM `covid-data-analysis-379919.Covid_Data.Covid_Deaths`
 -- WHERE location LIKE '%States%'
 WHERE continent IS NOT null
+GROUP BY Location
+ORDER BY TotalDeathCount DESC
+
+SELECT Location, MAX(cast(total_deaths AS int)) AS TotalDeathCount
+FROM `covid-data-analysis-379919.Covid_Data.Covid_Deaths`
+-- WHERE location LIKE '%States%'
+WHERE continent IS null
+AND location NOT in ('World', 'European Union', 'International')
 GROUP BY Location
 ORDER BY TotalDeathCount DESC
 
